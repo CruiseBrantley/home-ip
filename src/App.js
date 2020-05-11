@@ -1,26 +1,17 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from 'react'
+import publicIp from 'public-ip'
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	const [ipAddress, setIpAddress] = useState('...')
+
+	useEffect(() => {
+		const getIPAddress = async () => {
+			setIpAddress(await publicIp.v4())
+		}
+		getIPAddress()
+	}, [])
+
+	return <span>{`Current IP is: ${ipAddress}`}</span>
 }
 
-export default App;
+export default App
